@@ -1,0 +1,60 @@
+# 🐍 Archivos de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+instance/
+.env
+.env.local
+.env.*.local
+
+# 🔥 Logs y archivos temporales
+*.log
+*.bak
+*.swp
+*.swo
+*.swn
+*.tmp
+
+# 📦 Dependencias de Python
+venv/
+.virtualenv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# 📜 Migraciones de Alembic
+alembic/versions/
+alembic.ini
+
+# 🐳 Docker
+docker-compose.override.yml
+.dockerignore
+
+# 🛠️ Archivos de FastAPI
+backend/database.db  # Base de datos SQLite (si la usas)
+backend/__pycache__/
+backend/app/__pycache__/
+
+# 🌐 Node.js / Vue.js
+node_modules/
+dist/
+public/hot
+public/storage
+*.lock
+yarn-error.log
+npm-debug.log
+pnpm-debug.log
+vite.config.ts
+vite.config.js
+
+# 🏗️ IDEs y editores de código
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 🛡️ Seguridad
+secrets.json
+firebase-debug.log
