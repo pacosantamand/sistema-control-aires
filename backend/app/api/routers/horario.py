@@ -5,7 +5,7 @@ from app.api.models.horario import Horario
 from app.api.schemas.horario import HorarioCreate, HorarioUpdate, HorarioResponse
 from typing import List
 
-router = APIRouter(prefix="/horarioes", tags=["horarioes"])
+router = APIRouter(prefix="/horarios", tags=["horarios"])
 
 @router.post("/", response_model=HorarioResponse)
 def crear_horario(horario: HorarioCreate, db: Session = Depends(get_db)):

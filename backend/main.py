@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from sqlalchemy.orm import Session
 from app.database import engine, Base, SessionLocal
-from app.api.routers import aire, edificio, salon, horario
+from app.api.routers import aire, edificio, salon, horario, websocket
 
 
 @asynccontextmanager
@@ -22,5 +22,6 @@ app.include_router(edificio.router)
 app.include_router(salon.router)
 app.include_router(aire.router)
 app.include_router(horario.router)
+app.include_router(websocket.router)
 
 
