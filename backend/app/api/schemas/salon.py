@@ -1,12 +1,15 @@
 from pydantic import BaseModel
 from typing import List
-from aire import AireResponse
+from app.api.schemas.aire import AireResponse
 
 class SalonBase(BaseModel):
     nombre: str
 
 class SalonCreate(SalonBase):
-    pass
+    edificio_id: int
+
+class SalonUpdate(SalonBase):
+    edificio_id: int
 
 class SalonResponse(SalonBase):
     id: int

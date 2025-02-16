@@ -9,6 +9,9 @@ class HorarioBase(BaseModel):
 class HorarioCreate(HorarioBase):
     aire_id: int
 
+class HorarioUpdate(HorarioBase):
+    aire_id: int
+    
 class HorarioResponse(HorarioBase):
     id: int
     class Config:
