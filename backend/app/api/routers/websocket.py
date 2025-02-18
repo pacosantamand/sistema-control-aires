@@ -43,3 +43,19 @@ async def websocket_endpoint(websocket: WebSocket, db: Session = Depends(get_db)
     except WebSocketDisconnect:
         print(f"Desconectado Aire ID {aire_id}")
         device_connections.pop(aire_id, None)
+
+@router.post("/control_manual/{aire_id}")
+async def control_manual(aire_id: int, encender: bool, db: Session = Depends(get_db)):
+    aire = db.query(AireAcondicionado).filter(AireAcondicionado.id == aire_id).first()
+    if not aire:
+        return {"error": "Aire no encontrado"}
+
+    aire.estado = encender
+    db.commit()
+
+    # Notificar al Arduino si está conectado
+    if aire_id in device_connections:
+        await device_connections[aire_id].send_text("Encender Aire" if encender else "Apagar Aire")
+        print(f"Comando manual enviado a Aire {aire_id}: {'Encender' if encender else 'Apagar'}")
+
+    return {"mensaje": "Estado actualizado manualmente"}
