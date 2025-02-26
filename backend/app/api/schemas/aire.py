@@ -15,6 +15,7 @@ class AireUpdate(AireBase):
 class AireResponse(AireBase):
     id: int
     estado: bool
+    salon_id: int
     horarios: List[HorarioResponse] = []
     class Config:
         from_attributes = True

@@ -1,51 +1,70 @@
 <template>
-    <div class="container mx-auto  dark:bg-gray-800 p-4 rounded-2xl">
-      <h2 class="text-2xl font-bold m-b">Salones</h2>
-      <div class="p-4 rounded-lg shadow-md ">
-        <form @submit.prevent="crearSalon">
-          <div class="pb-4" >
-            <label>Nombre </label>
-            <input 
-              v-model="nuevoSalon.nombre" 
-              placeholder="Nombre" 
-              class="w-1/2 mb-2 p-2 block border rounded-md dark:bg-gray-600"
-              required 
-            />
+  <div class="container">
+    <h2 class="text-center my-4">Registro de Aires acondicionados</h2>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Datos del Aire acondicionado</h5>
           </div>
-          <div class="pb-4" >
-            <label>Edificio </label>
-            <select 
-               v-model="nuevoSalon.edificio_id"
-               class="w-1/2 mb-2 p-2 block border rounded-md dark:bg-gray-600" >
-                <option v-for="edificio in edificios" :value="edificio.id">{{ edificio.nombre }}</option>
-            </select>
+          <div class="card-body">
+            <form @submit.prevent="crearSalon">
+              <div class="mb-3" >
+                <label class="form-label">Nombre </label>
+                <input 
+                  v-model="nuevoSalon.nombre" 
+                  placeholder="Nombre" 
+                  class="form-control"
+                  required 
+                />
+              </div>
+              <div class="mb-3" >
+                <label class="form-label">Edificio </label>
+                <select 
+                  v-model="nuevoSalon.edificio_id"
+                  class="form-control" >
+                    <option v-for="edificio in edificios" :value="edificio.id">{{ edificio.nombre }}</option>
+                </select>
+              </div>
+              <button 
+                type="submit"
+                class="btn btn-primary"
+                >Agregar salon</button>
+            </form>
           </div>
-          <button 
-            type="submit"
-            class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-            >Agregar salon</button>
-        </form>
+        </div>
       </div>
-      <table class="w-full border-collapse border border-gray-300 mt-4">
-        <thead>
-          <tr class="bg-blue-500 text-white">
-            <th class="border p-2">ID</th>
-            <th class="border p-2">Nombre</th>
-            <th class="border p-2">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="salon in salones" :key="salon.id">
-            <td class="border p-2">{{ salon.id }}</td>
-            <td class="border p-2">{{ salon.nombre }}</td>
-            <td class="border p-2">
-              <button class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700" @click="eliminarSalon(salon.id)">Eliminar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
-  </template>
+    <div class="row mt-4">
+      <div class="col-md-10 offset-md-1">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Aires acondicionados registrados</h5>
+          </div>
+          <table class="table table-hover">
+            <thead>
+              <tr class>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="salon in salones" :key="salon.id">
+                <td>{{ salon.id }}</td>
+                <td>{{ salon.nombre }}</td>
+                <td>
+                  <button class="mx-1 btn btn-sm btn-warning" @click="eliminarSalon(salon.id)">Actualizar</button>
+                  <button class="mx-1 btn btn-sm btn-danger" @click="eliminarSalon(salon.id)">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
   
   <script>
   import api from "../services/api";
