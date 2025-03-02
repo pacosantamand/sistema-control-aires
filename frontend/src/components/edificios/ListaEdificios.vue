@@ -2,30 +2,8 @@
     <div class="container">
       <h2 class="text-center my-4">Registro de edificios</h2>
       <div class="row">
-        <div class="col-md-8 offset-md-2">
-          <div class="card">
-            <div class="card-header">
-              <h5 class="card-title">Datos del edificio</h5>
-            </div>
-            <div class="card-body">
-              <form @submit.prevent="crearEdificio">
-                <div class="mb-3" >
-                  <label for="nombre" class="form-label">Nombre </label>
-                  <input 
-                    v-model="nuevoEdificio.nombre" 
-                    placeholder="Nombre" 
-                    class="form-control"
-                    id="nombre"
-                    required 
-                  />
-                </div>
-                <button 
-                  type="submit"
-                  class="btn btn-primary"
-                  >Agregar edificio</button>
-              </form>
-            </div>
-          </div>
+        <div class="col-md-4 offset-md-1">
+          <button class="btn btn-primary" @click="router.push('/edificios/nuevo')">Crear edificio</button>
         </div>
       </div>
       <div class="row mt-4">
@@ -47,7 +25,7 @@
                   <td>{{ edificio.id }}</td>
                   <td>{{ edificio.nombre }}</td>
                   <td>
-                    <button class="btn btn-sm btn-warning mx-1" >Actualizar</button>
+                    <button class="btn btn-sm btn-warning mx-1" @click="actualizarEdificio(edificio.id)">Actualizar</button>
                     <button class="btn btn-sm btn-danger mx-1" @click="eliminarEdificio(edificio.id)">Eliminar</button>
                   </td>
                 </tr>
@@ -60,11 +38,13 @@
   </template>
   
   <script>
-  import api from "../services/api";
+  import api from "../../services/api";
+  import { useRouter } from 'vue-router'
   
   export default {
     data() {
       return {
+        router: useRouter(),
         edificios: [],
         nuevoEdificio: { nombre: "" },
       };
@@ -74,15 +54,13 @@
         const response = await api.get("/edificios/");
         this.edificios = response.data;
       },
-      async crearEdificio() {
-        await api.post("/edificios/", this.nuevoEdificio);
-        this.nuevoEdificio = { nombre: "" };
-        this.obtenerEdificios();
-      },
       async eliminarEdificio(id) {
         await api.delete(`/edificios/${id}`);
         this.obtenerEdificios();
       },
+      actualizarEdificio(id){
+        this.router.push(`/edificios/editar/${id}`);
+      }
     },
     mounted() {
       this.obtenerEdificios();

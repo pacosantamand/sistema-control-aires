@@ -56,7 +56,7 @@
 </template>
 <script>
   import api from "../../services/api";
-    import { useRouter, useRoute } from 'vue-router'
+  import { useRouter, useRoute } from 'vue-router'
 
   export default {
     data() {
@@ -89,4 +89,4 @@
         }
     },
   };
-  </script>
+</script>

@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import List
-from app.api.schemas.salon import SalonResponse
+#from app.api.schemas.salon import SalonResponse
 
 class EdificioBase(BaseModel):
     nombre: str
@@ -13,6 +13,6 @@ class EdificioUpdate(EdificioBase):
 
 class EdificioResponse(EdificioBase):
     id: int
-    salones: List[SalonResponse] = []
+    #salones: List[SalonResponse] = []
     class Config:
         from_attributes = True

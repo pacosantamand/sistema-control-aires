@@ -2,36 +2,8 @@
     <div class="container">
       <h2 class="text-center my-4">Registro de Aires acondicionados</h2>
       <div class="row">
-        <div class="col-md-8 offset-md-2">
-          <div class="card">
-            <div class="card-header">
-              <h5 class="card-title">Datos del Aire acondicionado</h5>
-            </div>
-            <div class="card-body">
-              <form @submit.prevent="crearAire">
-                <div class="mb-3" >
-                  <label class="form-label">Nombre</label>
-                  <input 
-                    v-model="nuevoAire.nombre" 
-                    placeholder="Nombre" 
-                    class="form-control"
-                    required 
-                  />
-                </div>
-                <div class="mb-3" >
-                  <label class="form-label">Salon</label>
-                  <select 
-                    v-model="nuevoAire.salon_id"
-                    class="form-control" >
-                      <option v-for="salon in salones" :value="salon.id">{{ salon.nombre }}</option>
-                  </select>
-                </div>
-                <button 
-                  type="submit"
-                  class="btn btn-primary">Agregar aire</button>
-              </form>
-            </div>
-          </div>
+        <div class="col-md-4 offset-md-1">
+        <button class="btn btn-primary" @click="router.push('/aires/nuevo')">Nuevo</button>
         </div>
       </div>
       <div class="row mt-4">
@@ -55,7 +27,7 @@
                   <td >{{ aire.nombre }}</td>
                   <td> {{ aire.salon.nombre }}</td>
                   <td >
-                    <button class="btn btn-sm btn-warning mx-1" >Actualizar</button>
+                    <button class="btn btn-sm btn-warning mx-1" @click="actualizarAire(aire.id)" >Actualizar</button>
                     <button class="btn btn-sm btn-danger mx-1" @click="eliminarAire(aire.id)">Eliminar</button>
                   </td>
                 </tr>
@@ -68,18 +40,18 @@
   </template>
   
   <script>
-  import api from "../services/api";
+  import api from "../../services/api";
+  import { useRouter } from "vue-router"
   
   export default {
     data() {
       return {
+        router: useRouter(),
         aires: [],
         salones: [],
-        nuevoAire: { nombre: "", salon_id: null },
       };
     },
     methods: {
-
       async obtenerSalones(){
         const response = await api.get("/salones/");
         this.salones = response.data;
@@ -88,15 +60,12 @@
         const response = await api.get("/aires/");
         this.aires = response.data;
       },
-      async crearAire() {
-        console.log(this.nuevoAire);
-        await api.post("/aires/", this.nuevoAire);
-        this.nuevoAire = { nombre: "", salon_id: null};
-        this.obtenerAires();
-      },
       async eliminarAire(id) {
         await api.delete(`/aires/${id}`);
         this.obtenerAires();
+      },
+      actualizarAire(id){
+        this.router.push(`/aires/editar/${id}`);
       },
     },
     mounted() {
