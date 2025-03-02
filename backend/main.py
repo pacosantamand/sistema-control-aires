@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from app.database import engine, Base, SessionLocal
-from app.api.routers import aire, edificio, salon, horario, usuario, websocket
+from app.api.routers import aire, edificio, salon, horario, usuario, websocket, bitacora
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -31,6 +31,7 @@ app.include_router(salon.router)
 app.include_router(aire.router)
 app.include_router(horario.router)
 app.include_router(usuario.router)
+app.include_router(bitacora.router)
 
 app.include_router(websocket.router)
 

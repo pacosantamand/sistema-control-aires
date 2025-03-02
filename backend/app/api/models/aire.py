@@ -12,3 +12,4 @@ class AireAcondicionado(Base):
 
     horarios = relationship("Horario", back_populates="aire")
     salon = relationship("Salon", back_populates="aires")
+    bitacora = relationship("Bitacora", back_populates="aire")

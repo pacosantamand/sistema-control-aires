@@ -31,7 +31,6 @@ def actualizar_usuario(id: int, usuario_actualizado: UsuarioUpdate, db: Session 
     usuario = db.query(Usuario).filter(Usuario.id == id).first()
     if not usuario:
         raise HTTPException(status_code=404, detail="usuario no encontrado")
-
     for key, value in usuario_actualizado.model_dump().items():
         setattr(usuario, key, value)
 

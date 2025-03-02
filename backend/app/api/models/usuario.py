@@ -1,5 +1,6 @@
 import enum 
 from sqlalchemy import Column, Integer, String, Enum
+from sqlalchemy.orm import relationship 
 from app.database import Base
 
 
@@ -16,3 +17,5 @@ class Usuario(Base):
     email = Column(String(100), index = True, unique = True)
     password = Column(String(100))
     rol = Column(Enum(Rol))
+
+    bitacora = relationship("Bitacora", back_populates="usuario")

@@ -8,7 +8,7 @@
               <h5 class="card-title">Datos del Aire acondicionado</h5>
             </div>
             <div class="card-body">
-              <form @submit.prevent="crearSalon">
+              <form @submit.prevent="crearAire">
                 <div class="mb-3" >
                   <label class="form-label">Nombre</label>
                   <input 
@@ -53,7 +53,7 @@
                 <tr v-for="aire in aires" :key="aire.id">
                   <td >{{ aire.id }}</td>
                   <td >{{ aire.nombre }}</td>
-                  <td> {{ aire.salon_id }}</td>
+                  <td> {{ aire.salon.nombre }}</td>
                   <td >
                     <button class="btn btn-sm btn-warning mx-1" >Actualizar</button>
                     <button class="btn btn-sm btn-danger mx-1" @click="eliminarAire(aire.id)">Eliminar</button>
