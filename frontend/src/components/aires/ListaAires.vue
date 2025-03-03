@@ -25,7 +25,7 @@
                 <tr v-for="aire in aires" :key="aire.id">
                   <td >{{ aire.id }}</td>
                   <td >{{ aire.nombre }}</td>
-                  <td> {{ aire.salon.nombre }}</td>
+                  <td> {{ aire.salon_id }}</td>
                   <td >
                     <button class="btn btn-sm btn-warning mx-1" @click="actualizarAire(aire.id)" >Actualizar</button>
                     <button class="btn btn-sm btn-danger mx-1" @click="eliminarAire(aire.id)">Eliminar</button>

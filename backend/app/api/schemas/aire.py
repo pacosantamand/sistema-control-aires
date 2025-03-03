@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import List
 
 from app.api.schemas.horario import HorarioResponse
-from app.api.schemas.salon import SalonResponse
+#from app.api.schemas.salon import SalonResponse
 
 class AireBase(BaseModel):
     nombre: str
@@ -16,7 +16,8 @@ class AireUpdate(AireBase):
 class AireResponse(AireBase):
     id: int
     estado: bool
-    salon: SalonResponse
+    #salon: SalonResponse
+    salon_id: int
     horarios: List[HorarioResponse] = []
 
     class Config:

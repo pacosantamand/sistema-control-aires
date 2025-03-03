@@ -90,7 +90,7 @@
                   <td>{{ bita.id }}</td>
                   <td v-if="bita.accion=='encender'"><span class="badge text-bg-success">Encendido</span></td>
                   <td v-else><span class="badge text-bg-danger">Apagado</span></td>
-                  <td>{{ bita.aire.salon.nombre }}</td>
+                  <td>{{ bita.aire.salon_id }}</td>
                   <td>{{ bita.razon }}</td>
                   <td>{{ bita.usuario.nombre }}</td>
                   <td>{{ bita.fecha }}</td>

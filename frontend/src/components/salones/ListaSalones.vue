@@ -25,7 +25,7 @@
               <tr v-for="salon in salones" :key="salon.id">
                 <td>{{ salon.id }}</td>
                 <td>{{ salon.nombre }}</td>
-                <td>{{ salon.edificio.nombre }}</td>
+                <td>{{ salon.edificio_id }}</td>
                 <td>
                   <button class="mx-1 btn btn-sm btn-warning" @click="actualizarSalon(salon.id)">Actualizar</button>
                   <button class="mx-1 btn btn-sm btn-danger" @click="eliminarSalon(salon.id)">Eliminar</button>
