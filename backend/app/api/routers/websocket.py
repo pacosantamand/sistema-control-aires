@@ -29,7 +29,7 @@ async def websocket_endpoint(websocket: WebSocket, db: Session = Depends(get_db)
 
     await websocket.accept()
     aire_id = await websocket.receive_text()  # Recibe el ID del aire acondicionado desde Arduino
-
+    print("aire id: ",aire_id)
     try:
         aire_id = int(aire_id)
         device_connections[aire_id] = websocket

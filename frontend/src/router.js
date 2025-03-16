@@ -9,6 +9,8 @@ import FormEdificios from "./components/edificios/FormEdificios.vue";
 import FormSalones  from "./components/salones/FormSalones.vue";
 import FormAires from "./components/aires/FormAires.vue";
 import Control from "./components/Control.vue";
+import Horarios from "./components/horarios/ListaHorarios.vue";
+import FormHorario from "./components/horarios/FormHorario.vue";
 
 const routes = [
   { path: "/edificios", component: ListaEdificios },
@@ -25,6 +27,8 @@ const routes = [
   { path: "/usuarios/nuevo",component: FormUsuario},
   { path: '/usuarios/editar/:id', component: FormUsuario, props: true },
   { path: '/control', component: Control },
+  { path: '/horarios', component: Horarios },
+  { path: '/horarios/:idsalon/nuevo', component: FormHorario, props: true},
 ];
 
 const router = createRouter({

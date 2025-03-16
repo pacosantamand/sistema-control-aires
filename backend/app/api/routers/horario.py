@@ -9,7 +9,7 @@ router = APIRouter(prefix="/horarios", tags=["horarios"])
 
 @router.post("/", response_model=HorarioResponse)
 def crear_horario(horario: HorarioCreate, db: Session = Depends(get_db)):
-    nuevo_horario = horario(**horario.model_dump())
+    nuevo_horario = Horario(**horario.model_dump())
     db.add(nuevo_horario)
     db.commit()
     db.refresh(nuevo_horario)
@@ -18,6 +18,11 @@ def crear_horario(horario: HorarioCreate, db: Session = Depends(get_db)):
 @router.get("/", response_model=List[HorarioResponse])
 def listar_horarioes(db: Session = Depends(get_db)):
     return db.query(Horario).all()
+
+@router.get("/aire/{id}", response_model=List[HorarioResponse])
+def obtener_horario_aire(id: int, db: Session = Depends(get_db)):
+    return db.query(Horario).filter(Horario.aire_id == id).all()
+
 
 @router.get("/{id}", response_model=HorarioResponse)
 def obtener_horario(id: int, db: Session = Depends(get_db)):
