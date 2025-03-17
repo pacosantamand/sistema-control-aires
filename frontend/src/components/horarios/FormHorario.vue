@@ -8,6 +8,11 @@
               <h5 class="card-title">Horario del salon - <span v-if="this.salon !=null" class="fw-bold">{{ this.salon.nombre }}</span> </h5>
             </div>
             <div class="card-body">
+                <!-- Muestra el mensaje de error si existe -->
+                <div v-if="this.errorMensaje" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ this.errorMensaje }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <form @submit.prevent="guardarHorario">
                     <div class="mb-3" >
                         <label class="form-label">Día</label>
@@ -60,6 +65,7 @@ export default{
                 hora_fin: "",
                 aire_id: null
             },
+            errorMensaje: "",
             route: useRoute(),
             router: useRouter(),
         };
@@ -71,15 +77,28 @@ export default{
             console.log(this.salon);
         },
         async guardarHorario(){
-            for (const aire of this.salon.aires) {
-                this.horario.aire_id = aire.id;
-                await api.post("/horarios", this.horario);
+            try{
+                for (const aire of this.salon.aires) {
+                    this.horario.aire_id = aire.id;
+                    await api.post("/horarios", this.horario);
+                }
+                this.router.push("/horarios");
+            }catch(error){
+                if (error.response && error.response.data) {
+                    const errores = error.response.data;
+                    if (Array.isArray(errores.detail)) {
+                        // Extraer el mensaje del error
+                        this.errorMensaje = errores.detail.map(err => err.msg).join(", ");
+                    } else {
+                        this.errorMensaje = "Error desconocido.";
+                    }
+                } else {
+                    this.errorMensaje = "Error al conectar con el servidor.";
+                }    
             }
-            this.router.push("/horarios");
         },
     },
     mounted(){
-        //console.log(this.route.params.idsalon);
         this.cargarSalon();
     }
 }

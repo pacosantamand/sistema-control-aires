@@ -11,6 +11,7 @@ router = APIRouter(prefix="/bitacora", tags=["bitacora"])
 
 @router.post("/",response_model=BitacoraResponse)
 def crear_bitacora(bitacora: BitacoraCreate, db: Session = Depends(get_db)):
+    print(bitacora)
     nuevo_bitacora = Bitacora(**bitacora.model_dump())
     db.add(nuevo_bitacora)
     db.commit()

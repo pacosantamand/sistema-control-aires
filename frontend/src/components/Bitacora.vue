@@ -93,7 +93,7 @@
                   <td>{{ bita.aire.salon_id }}</td>
                   <td>{{ bita.razon }}</td>
                   <td>{{ bita.usuario.nombre }}</td>
-                  <td>{{ bita.fecha }}</td>
+                  <td>{{ formatoFecha(bita.fecha) }}</td>
                 </tr>
               </tbody>
             </table>
@@ -105,6 +105,7 @@
   
   <script>
   import api from "../services/api";
+  import { parse, format } from "date-fns"
   
   export default {
     data() {
@@ -113,8 +114,11 @@
         tipoBusqueda: "",
         opciones: ["Todos","Por día", "Por rango de fecha"],
         fecha: "",
+        fechaISO: "",
         fecha_inicio: "",
-        fecha_fin: ""
+        fecha_inicioISO: "",
+        fecha_fin: "",
+        fecha_finISO: "",
       };
     },
     methods: {
@@ -123,11 +127,30 @@
         this.bitacora = response.data;
       },
       async obtenerBitacoraPorDia(){
-        const response = await api.get(`/bitacora/dia/${this.fecha}`);
+        const partes = this.fecha.split("/");
+        if (partes.length === 3) {
+          this.fechaISO = `${partes[2]}-${partes[1]}-${partes[0]}`; 
+        } else {
+          this.fechaISO = "";
+        }
+        const response = await api.get(`/bitacora/dia/${this.fechaISO}`);
         this.bitacora = response.data;
       },
       async obtenerBitacoraRango(){
-        const response = await api.get(`/bitacora/desde/${this.fecha_inicio}/hasta/${this.fecha_fin}`);
+        const partes_inicio = this.fecha_inicio.split("/");
+        if (partes_inicio.length === 3) {
+          this.fecha_inicioISO = `${partes_inicio[2]}-${partes_inicio[1]}-${partes_inicio[0]}`; 
+        } else {
+          this.fecha_inicioISO = "";
+        }
+        const partes_fin = this.fecha_fin.split("/");
+        if (partes_fin.length === 3) {
+          this.fecha_finISO = `${partes_fin[2]}-${partes_fin[1]}-${partes_fin[0]}`; 
+        } else {
+          this.fecha_finISO = "";
+        }
+
+        const response = await api.get(`/bitacora/desde/${this.fecha_inicioISO}/hasta/${this.fecha_finISO}`);
         this.bitacora = response.data;
       },
       cambiaOpcion(event) {
@@ -137,6 +160,10 @@
           this.ficha_fin="";
           this.obtenerBitacora();
         }
+      },
+      formatoFecha(fechaISO) {
+        if (!fechaISO) return "";
+        return format(new Date(fechaISO), "dd/MM/yyyy");
       }
     },
     mounted() {
