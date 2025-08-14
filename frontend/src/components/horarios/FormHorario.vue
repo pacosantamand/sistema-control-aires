@@ -58,7 +58,7 @@ export default{
         return {
             esEdicion: false,
             salon: null,
-            dias: ["Lunes","Martes","Miércoles","Juves","Viernes","Sábado"],
+            dias: ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"],
             horario: {
                 dia: "",
                 hora_inicio: "",
